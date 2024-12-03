@@ -21,5 +21,12 @@ img{
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
 }
-
+.hidden{
+  visibility: hidden;
+}
+.timer {
+  display: flex;
+  align-items: center;
+}
