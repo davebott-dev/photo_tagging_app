@@ -1,8 +1,25 @@
-#root {
+:root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
   text-align: center;
+  font-family: 'Jaro', 'serif';
+  --background: #242424;
+  --font-color: white;
+  width: 100%;
 }
-
+html{
+  background: var(--background);
+}
+body{
+  color: var(--font-color);
+}
+img{
+  width: 100%;
+}
+#header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
 
