@@ -13,7 +13,36 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Char {
-  id   String @id @default(uuid())
-  name String @unique
+model Gameboard {
+  id         String      @id @default(uuid())
+  name       String
+  imgURL     String
+  characters Character[]
+}
+
+model Character {
+  id          String    @id @default(uuid())
+  name        String
+  xCoord      Float
+  yCoord      Float
+  gameboard   Gameboard @relation(fields: [gameboardId], references: [id])
+  gameboardId String
+  Guess       Guess[]
+}
+
+model User {
+  id       String  @id @default(uuid())
+  username String  @unique
+  guesses  Guess[]
+}
+
+model Guess {
+  id          String     @id @default(uuid())
+  xCoord      Float
+  yCoord      Float
+  isCorrect   Boolean
+  user        User       @relation(fields: [userId], references: [id])
+  userId      String
+  character   Character? @relation(fields: [characterId], references: [id])
+  characterId String?
 }

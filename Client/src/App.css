@@ -13,9 +13,9 @@ html{
 body{
   color: var(--font-color);
 }
-img{
+/* img{
   width: 100%;
-}
+} */
 #header{
   display: flex;
   flex-direction: row;
