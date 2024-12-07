@@ -18,6 +18,7 @@ model Gameboard {
   name       String
   imgURL     String
   characters Character[]
+  User       User[]
 }
 
 model Character {
@@ -31,9 +32,11 @@ model Character {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  username String  @unique
-  guesses  Guess[]
+  id          String    @id @default(uuid())
+  username    String    @unique
+  mapChoice   Gameboard @relation(fields: [gameboardId], references: [id])
+  guesses     Guess[]
+  gameboardId String
 }
 
 model Guess {

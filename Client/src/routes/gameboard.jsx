@@ -1,11 +1,13 @@
-import { useState } from "react";
-import "./App.css";
+import { useState, useEffect } from "react";
+import "../App.css";
 
 function Gameboard() {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     open ? setOpen(false) : setOpen(true);
   };
+
+  
 
   return (
     <div id="indexContainer">
@@ -38,3 +40,5 @@ function Gameboard() {
 }
 
 export default Gameboard;
+
+//make an api call to get the selected gameboard and build in the game logic

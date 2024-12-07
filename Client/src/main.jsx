@@ -4,6 +4,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import "@fontsource/jaro";
 import Index from './Index.jsx'
 import Root from './routes/Root.jsx';
+import Gameboard from './routes/gameboard.jsx';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         index:true,
         element: <Index/>,
+      },
+      {
+        path: '/game',
+        element: <Gameboard/>,
       }
     ]
   }
