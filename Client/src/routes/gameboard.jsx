@@ -1,37 +1,46 @@
 import { useState, useEffect } from "react";
+import {useParams} from 'react-router-dom';
 import "../App.css";
 
 function Gameboard() {
   const [open, setOpen] = useState(false);
+  const [game,setGame] = useState(null);
+  const {userId} = useParams();
+
   const handleClick = () => {
     open ? setOpen(false) : setOpen(true);
   };
 
-  
+  useEffect(() => {
+    const fetchData = async() => {
+      const response = await fetch('/api/game/'+userId);
+      const data = await response.json();
+      console.log(data);
+      setGame(data);
+    }
+    fetchData()
+  }, [userId])
 
+  if(!game) {
+    return <p>Loading...</p>
+  }
+  
   return (
     <div id="indexContainer">
-      <img
-        src="https://where-is-waldo-kc.netlify.app/assets/waldo-1-CnK-GoU-.webp"
-        alt="a very crowded beach"
-        onClick={(e)=>console.log(e.clientX, e.clientY)}
+       <img
+        className = 'gameImg'
+        src={game.game.imgURL}
+        onClick={handleClick}
       ></img>
       {open && (
         <div id="popup">
           <p>Select a Character</p>
           <div>
-            <img
-              src="https://www.giantbomb.com/a/uploads/scale_small/4/46311/1333591-200px_character.odlaw.jpg"
-              alt="image of odlaw"
-            />
-            <img
-              src="https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg"
-              alt="image of waldo"
-            />
-            <img
-              src="https://www.giantbomb.com/a/uploads/scale_small/4/46311/1341868-wizard.gif"
-              alt="image of wizard whitebeard"
-            />
+            {game.game.characters.map((el,index)=>{
+              return (
+                <img key={index} src={el.characterURL}/>
+              )
+            }) }
           </div>
         </div>
       )}
@@ -40,5 +49,3 @@ function Gameboard() {
 }
 
 export default Gameboard;
-
-//make an api call to get the selected gameboard and build in the game logic

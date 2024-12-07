@@ -20,9 +20,9 @@ body{
   padding: 0px;
   margin: 0px;
 }
-/* img{
+.gameImg{
   width: 100%;
-} */
+}
 #header{
   display: flex;
   flex-direction: row;
@@ -107,4 +107,9 @@ footer{
   gap: 25px;
   width: 100%;
   justify-content: center;
+}
+a{
+  text-decoration: none;
+  color: white;
+
 }

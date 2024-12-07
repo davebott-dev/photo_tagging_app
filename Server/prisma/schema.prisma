@@ -22,13 +22,14 @@ model Gameboard {
 }
 
 model Character {
-  id          String    @id @default(uuid())
-  name        String
-  xCoord      Float
-  yCoord      Float
-  gameboard   Gameboard @relation(fields: [gameboardId], references: [id])
-  gameboardId String
-  Guess       Guess[]
+  id           String    @id @default(uuid())
+  name         String
+  characterURL String
+  xCoord       Float
+  yCoord       Float
+  gameboard    Gameboard @relation(fields: [gameboardId], references: [id])
+  gameboardId  String
+  Guess        Guess[]
 }
 
 model User {

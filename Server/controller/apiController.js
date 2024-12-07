@@ -50,5 +50,35 @@ module.exports = {
             msg:'could not create user',
         });
     }
+    },
+    startGame: async(req,res)=> {
+        try {
+            const user = await prisma.user.findFirst({
+                where: {
+                    id:req.params.userId,
+                }
+            });
+            const map = await prisma.gameboard.findFirst({
+                where:{
+                    id: user.gameboardId,
+                },
+                include:{
+                    characters:true,
+                }
+            })
+            res.json({
+                success:true,
+                user:user,
+                game:map,
+                msg:'success'
+            })
+        } catch(err) {
+            console.error(err);
+            res.status(500).json({
+                success:false,
+                msg: 'could not start game'
+            })
+        }
+      
     }
 };

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 import { useState } from "react";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -15,7 +15,7 @@ function Root() {
     <div id ="rootContainer">
       <div>
         <div id="header">
-          <div></div>
+          <Link>Home</Link>
           <h1>Where's Waldo</h1>
           {open ? (
             <div className="timer">
@@ -33,7 +33,7 @@ function Root() {
             </div>
           )}
         </div>
-        <Outlet />
+        <Outlet  />
       </div>
       <footer>
           <div>Made with ❤️ by David Bottenberg</div>
@@ -44,3 +44,6 @@ function Root() {
 }
 
 export default Root;
+
+//handle timer function--start once user submits form
+//code game logic...if user clicks correct spot remove img from list and bring popup down

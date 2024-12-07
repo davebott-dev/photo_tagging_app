@@ -26,22 +26,27 @@ function Index() {
     const username = e.target.username.value;
 
     try{
-      const response = await fetch('/api',{
+      const response = await fetch('/api/game',{
         method: 'POST',
         headers:{
           "Content-Type": "application/json",
         },
         body: JSON.stringify({username, selected}),
       });
-      const data = response.json();
-      console.log(data)
-    } catch(err) {
-      console.error('submission failed', err)
-    } finally{
-      navigate('game');
-    }
-  }
+      if(response.ok) {
+        const data = await response.json();
+        console.log(data);
+        if(data.success) {
+          navigate('/game/'+data.data.id);
+        }
 
+      } else {
+        console.error('Username already selected');
+      }
+    } catch(err) {
+      console.error('submission failed', err);
+    } 
+  }
   return (
     <div id="indexContainer">
       <form onSubmit= {handleSubmit}>
@@ -58,13 +63,13 @@ function Index() {
                 <div>
                   <input
                     type="radio"
-                    id="choice1"
+                    id={`choice-${index}`}
                     name="map"
-                    value="beach"
-                    checked={selected}
+                    value={map.name}
+                    checked={selected===map.name}
                     onChange={handleChange}
                   />
-                  {map.name}
+                  <label htmlFor={`choice-${index}`}>{map.name}</label>
                 </div>
                 <img
                   src={map.imgURL}
@@ -84,7 +89,4 @@ function Index() {
 
 export default Index;
 
-/* continue formatting selection page...when user selects a gameboard it takes them
-to the page with that gameboard displayed...*/
-//create time funcationality
-//code in game logic functionality
+
