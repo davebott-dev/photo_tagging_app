@@ -75,7 +75,7 @@ body{
   flex-direction: row;
   gap: 15px;
 }
-#popup >div>img {
+#popup>div>form>img {
   border-radius: 10px;
   cursor: pointer;
 }
@@ -86,7 +86,7 @@ body{
   justify-content: center;
   align-items: center;
 }
-form{
+form:not(#charSelect){
   background: rgba(8, 8, 8, 0.7);
   padding: 25px;
   border-radius: 10px;
@@ -111,5 +111,8 @@ footer{
 a{
   text-decoration: none;
   color: white;
-
+}
+.imgBtn{
+  border: none;
+  background: none;
 }

@@ -5,6 +5,7 @@ const controller = require('../controller/apiController');
 router.get('/', controller.getGB);
 router.post('/game',controller.createUser);
 router.get('/game/:userId', controller.startGame);
+router.post('/game/:userId', controller.guess);
 
 
 module.exports = router;

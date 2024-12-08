@@ -80,5 +80,15 @@ module.exports = {
             })
         }
       
+    },
+    guess: async(req,res)=> {
+        // try{
+        //     const guess = await prisma.guess.create({
+
+        //     })
+        // }
+        console.log(req)
     }
 };
+
+//fix guess route and fix front end data sending
