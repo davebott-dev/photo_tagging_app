@@ -109,13 +109,39 @@ module.exports = {
           characterId: req.body.characterId,
         },
       });
+
+      const user = await prisma.user.findUnique({
+        where: {
+          id: req.body.userId,
+        },
+        include:{
+          mapChoice: {
+            include: {
+              characters:true,
+            },
+          },
+          guesses: true,
+        },
+      });
+
+      const totalChar = user.mapChoice.characters.length;
+      const correctGuesses = user.guesses.filter((g)=> g.isCorrect).length;
+
+      const hasWon = totalChar ===correctGuesses;
+
       console.log(guess);
       res.json({
         success:true,
         guess,
+        hasWon,
+        msg: hasWon ? "You Win" : "Keep Trying!",
       })
     } catch (err) {
       console.error(err);
+      res.status(500).json({
+        success:false,
+        msg: 'error processing guess'
+      })
     }
   },
 

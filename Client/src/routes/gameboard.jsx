@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { Snackbar, Alert } from "@mui/material";
 import "../App.css";
 
 function Gameboard() {
@@ -7,6 +8,7 @@ function Gameboard() {
   const [game, setGame] = useState(null);
   const [guess, setGuess] = useState([]);
   const { userId } = useParams();
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     setGuess([e.clientX, e.clientY]);
@@ -67,15 +69,22 @@ function Gameboard() {
                   });
                   if (response.ok) {
                     const data = await response.json();
-                    console.log(data);
+                    console.log("guess",data);
+
+                    if(data.hasWon) {
+                      alert("congrats you won");
+                      navigate('/');
+                    }
                   }
                 } catch (err) {
                   console.error(err);
+                } finally {
+                  setOpen(!open)
                 }
               };
               return (
                 <form key={index} id="charSelect" onSubmit={handleSubmit}>
-                  <button className="imgBtn">
+                  <button className="imgBtn" >
                     <img
                       src={el.characterURL}
                       onClick={() => console.log(guess)}
