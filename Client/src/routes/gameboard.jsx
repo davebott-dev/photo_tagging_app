@@ -83,6 +83,7 @@ function Gameboard() {
                 }
               };
               return (
+                el.Guess.find((val)=>val.isCorrect==true) ? null :
                 <form key={index} id="charSelect" onSubmit={handleSubmit}>
                   <button className="imgBtn" >
                     <img
@@ -102,11 +103,10 @@ function Gameboard() {
 
 export default Gameboard;
 
-/* if there is a true guess in each of the character arrays end the game and
+/*if there is a true guess in each of the character arrays end the game and
 return the time it took to complete*/
 
 //when a user guesses correct remove the option to select that character from the list
 //conditionally map only if there is no true in the array
 
 //maybe create a prisma model that holds high score data from different users. 
-
