@@ -11,21 +11,21 @@ const main = async() => {
     //                 {
     //                 name: 'Waldo',
     //                 characterURL:"https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg",
-    //                 xCoord: 715.0,
-    //                 yCoord: 375.0,
+    //                 xCoord: 980.0,
+    //                 yCoord: 450.0,
 
     //             },
     //             {
     //                 name: 'Odwal',
     //                 characterURL: "https://www.giantbomb.com/a/uploads/scale_small/4/46311/1333591-200px_character.odlaw.jpg",
-    //                 xCoord: 130.0,
-    //                 yCoord: 355.0,
+    //                 xCoord: 325.0,
+    //                 yCoord: 425.0,
     //             },
     //             {
     //                 name:'Wizard Whitebeard',
     //                 characterURL: "https://www.giantbomb.com/a/uploads/scale_small/4/46311/1341868-wizard.gif",
-    //                 xCoord: 315.0,
-    //                 yCoord: 360.0,
+    //                 xCoord: 535.0,
+    //                 yCoord: 430.0,
     //             }
     //         ]
     //         }
@@ -40,21 +40,21 @@ const main = async() => {
                     {
                     name: 'Waldo',
                     characterURL:"https://www.giantbomb.com/a/uploads/scale_small/0/5973/545186-waldo2.jpg",
-                    xCoord: 775.0,
-                    yCoord: 1000.0,
+                    xCoord: 1035.0,
+                    yCoord: 1040.0,
 
                 },
                 {
                     name: 'Wenda',
                     characterURL: "https://www.giantbomb.com/a/uploads/scale_small/4/46311/1333585-150px_character.wenda.jpg",
-                    xCoord: 785.0,
-                    yCoord: 840.0,
+                    xCoord: 1040.0,
+                    yCoord: 850.0,
                 },
                 {
                     name:'Wizard Whitebeard',
                     characterURL: "https://www.giantbomb.com/a/uploads/scale_small/4/46311/1341868-wizard.gif",
-                    xCoord: 1165.0,
-                    yCoord: 1025.0,
+                    xCoord: 1445.0,
+                    yCoord: 1050.0,
                 }
             ]
             }
@@ -69,6 +69,7 @@ const main = async() => {
     // const c = await prisma.character.deleteMany({})
     // const user = await prisma.user.deleteMany({})
     // const gb = await prisma.gameboard.deleteMany({})
+    // const guess = await prisma.guess.deleteMany({});
     console.dir(gb, {depth:null});
 }
 

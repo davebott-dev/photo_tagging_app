@@ -21,7 +21,7 @@ function Gameboard() {
       setGame(data);
     };
     fetchData();
-  }, [userId]);
+  }, [userId,guess]);
 
   if (!game) {
     return <p>Loading...</p>;
@@ -39,32 +39,40 @@ function Gameboard() {
           <p>Select a Character</p>
           <div>
             {game.game.characters.map((el, index) => {
-                const handleSubmit = async(e) => {
-                  e.preventDefault();
+              const handleSubmit = async (e) => {
+                e.preventDefault();
 
-                  const xCoord = guess[0];
-                  const yCoord = guess[1];
-                  const userId = game.user.id;
-                  const characterId = el.id;
-                  let isCorrect;
-                  Math.abs(guess[0]-el.xCoord)<25 && Math.abs(guess[1] && yCoord)<25 ? isCorrect=true : isCorrect=false; 
+                const correct =
+                  Math.abs(el.xCoord - guess[0]) <= 25 &&
+                  Math.abs(el.yCoord - guess[1]) <= 25;
 
-                  try{
-                    const response = await fetch('/api/game/'+userId, {
-                      method:'POST',
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                      body: JSON.stringify({xCoord,yCoord,userId,characterId,isCorrect})
-                    });
-                    if(response.ok) {
-                      const data = await response.json();
-                      console.log(data);
-                    }
-                  } catch(err) {
-                    console.error(err)
+                const xCoord = guess[0];
+                const yCoord = guess[1];
+                const userId = game.user.id;
+                const characterId = el.id;
+
+                try {
+                  const response = await fetch("/api/game/" + userId, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      xCoord,
+                      yCoord,
+                      userId,
+                      characterId,
+                      correct,
+                    }),
+                  });
+                  if (response.ok) {
+                    const data = await response.json();
+                    console.log(data);
                   }
+                } catch (err) {
+                  console.error(err);
                 }
+              };
               return (
                 <form key={index} id="charSelect" onSubmit={handleSubmit}>
                   <button className="imgBtn">
@@ -84,3 +92,12 @@ function Gameboard() {
 }
 
 export default Gameboard;
+
+/* if there is a true guess in each of the character arrays end the game and
+return the time it took to complete*/
+
+//when a user guesses correct remove the option to select that character from the list
+//conditionally map only if there is no true in the array
+
+//maybe create a prisma model that holds high score data from different users. 
+
