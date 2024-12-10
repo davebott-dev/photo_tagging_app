@@ -1,18 +1,24 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { Snackbar, Alert } from "@mui/material";
+import { useParams, useOutletContext } from "react-router-dom";
 import "../App.css";
 
 function Gameboard() {
   const [open, setOpen] = useState(false);
-  const [game, setGame] = useState(null);
+  const [game, setGame, time] = useOutletContext();
   const [guess, setGuess] = useState([]);
   const { userId } = useParams();
-  const navigate = useNavigate();
 
   const handleClick = (e) => {
     setGuess([e.clientX, e.clientY]);
     open ? setOpen(false) : setOpen(true);
+  };
+
+  const formatTime = (s) => {
+    const minutes = Math.floor(s / 60);
+    const sec = s % 60;
+    return `${minutes.toString().padStart(2, "0")}: ${sec
+      .toString()
+      .padStart(2, "0")}`;
   };
 
   useEffect(() => {
@@ -23,7 +29,7 @@ function Gameboard() {
       setGame(data);
     };
     fetchData();
-  }, [userId,guess]);
+  }, [userId, guess]);
 
   if (!game) {
     return <p>Loading...</p>;
@@ -69,23 +75,29 @@ function Gameboard() {
                   });
                   if (response.ok) {
                     const data = await response.json();
-                    console.log("guess",data);
+                    console.log("guess", data);
 
-                    if(data.hasWon) {
-                      alert("congrats you won");
-                      navigate('/');
+                    if (data.hasWon) {
+                      alert(
+                        `Congrats ${game.user.username} you won in ${formatTime(
+                          time
+                        )}`
+
+                        //on win fetch and post the user data and time to leaderboard schema
+                      );
+                      //display the leaderboard and navigate home
+                      window.location.assign('http://localhost:5173/')
                     }
                   }
                 } catch (err) {
                   console.error(err);
                 } finally {
-                  setOpen(!open)
+                  setOpen(!open);
                 }
               };
-              return (
-                el.Guess.find((val)=>val.isCorrect==true) ? null :
+              return el.Guess.find((val) => val.isCorrect == true) ? null : (
                 <form key={index} id="charSelect" onSubmit={handleSubmit}>
-                  <button className="imgBtn" >
+                  <button className="imgBtn">
                     <img
                       src={el.characterURL}
                       onClick={() => console.log(guess)}
@@ -103,10 +115,4 @@ function Gameboard() {
 
 export default Gameboard;
 
-/*if there is a true guess in each of the character arrays end the game and
-return the time it took to complete*/
-
-//when a user guesses correct remove the option to select that character from the list
-//conditionally map only if there is no true in the array
-
-//maybe create a prisma model that holds high score data from different users. 
+//maybe create a prisma model that holds high score data from different users.

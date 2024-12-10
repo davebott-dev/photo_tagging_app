@@ -50,3 +50,9 @@ model Guess {
   character   Character? @relation(fields: [characterId], references: [id])
   characterId String?
 }
+
+model Leaderboard {
+  id String @id @default(uuid())
+}
+
+//create leaderboard schema

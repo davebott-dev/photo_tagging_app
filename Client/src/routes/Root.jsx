@@ -1,21 +1,16 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
 import WatchLaterIcon from "@mui/icons-material/WatchLater";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { IconButton } from "@mui/material";
 
 function Root() {
-  const [open, setOpen] = useState(false);
+  const [game, setGame] = useState(null);
+  const [open, setOpen] = useState(true);
   const [time, setTime] = useState(0);
-  const [running, setRunning] = useState(false);
 
   const handleOpen = () => {
     setOpen((prev) => !prev);
-    setRunning((prev) => !prev);
-
-    if (!open) {
-      setTime(0);
-    }
   };
 
   const formatTime = (s) => {
@@ -28,7 +23,7 @@ function Root() {
 
   useEffect(() => {
     let timer;
-    if (running) {
+    if (game) {
       timer = setInterval(() => {
         setTime((prev) => prev + 1);
       }, 1000);
@@ -36,31 +31,31 @@ function Root() {
       clearInterval(timer);
     }
     return () => clearInterval(timer);
-  }, [running]);
+  }, [game]);
 
   return (
     <div id="rootContainer">
       <div>
         <div id="header">
-          <Link>Home</Link>
+          {game? <a href="/"  >Home</a> : <div></div>}
           <h1>Where's Waldo</h1>
           {open ? (
-            <div className="timer">
+            game ? <div className="timer">
               <div>{formatTime(time)}</div>
               <IconButton color="primary" onClick={handleOpen}>
                 <WatchLaterIcon />
               </IconButton>
-            </div>
+            </div> : <div></div>
           ) : (
-            <div className="timer">
+            game ? <div className="timer">
               <div className="hidden">timer</div>
               <IconButton color="primary" onClick={handleOpen}>
                 <WatchLaterIcon />
               </IconButton>
-            </div>
+            </div> : <div></div>
           )}
         </div>
-        <Outlet />
+        <Outlet context = {[game,setGame, time]}/>
       </div>
       <footer>
         <div>Made with ❤️ by David Bottenberg</div>
@@ -73,5 +68,3 @@ function Root() {
 }
 
 export default Root;
-
-//timer automatically starts when the game is started...can open and close view 
