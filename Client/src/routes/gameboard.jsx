@@ -78,15 +78,33 @@ function Gameboard() {
                     console.log("guess", data);
 
                     if (data.hasWon) {
-                      alert(
-                        `Congrats ${game.user.username} you won in ${formatTime(
-                          time
-                        )}`
+                      const userId = game.user.id;
+                      const gameboardId= game.game.id;
+                      const timeVal = time;
 
-                        //on win fetch and post the user data and time to leaderboard schema
-                      );
-                      //display the leaderboard and navigate home
-                      window.location.assign('http://localhost:5173/')
+                        try{
+                          await fetch("/api/game/" + userId +'/win',{
+                            method: "POST",
+                            headers: {
+                              "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                              userId,
+                              gameboardId,
+                              timeVal,
+                            }),
+                          });
+                          if(response.ok) {
+                            const score = await response.json();
+                            console.log("New Score", score);
+                          }
+                        }catch(err) {
+                          console.error("could not post to leaderboard",err)
+                        }
+                      // window.location.assign('http://localhost:5173/');
+                      return(
+                        <div>hello world</div>
+                      )
                     }
                   }
                 } catch (err) {
@@ -115,4 +133,4 @@ function Gameboard() {
 
 export default Gameboard;
 
-//maybe create a prisma model that holds high score data from different users.
+//figure out why I cant post to leaderboard--chatGPT

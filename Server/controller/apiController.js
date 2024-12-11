@@ -135,7 +135,8 @@ module.exports = {
         guess,
         hasWon,
         msg: hasWon ? "You Win" : "Keep Trying!",
-      })
+      });
+      
     } catch (err) {
       console.error(err);
       res.status(500).json({
@@ -144,6 +145,44 @@ module.exports = {
       })
     }
   },
+  addLeader: async(req,res)=> {
+    try{
+      const newScore = await prisma.leaderboard.create({
+        data:{
+          userId: req.body.userId,
+          gameboardId: req.body.gameboardId,
+          time: req.body.timeVal,
+        }
+      });
+
+      const user = await prisma.user.findUnique({
+        where:{
+          id: req.body.userId,
+        }
+      });
+
+      const gb = await prisma.gameboard.findUnique({
+        where:{
+          id: req.body.gameboardId,
+        }
+      });
+
+      console.log(newScore);
+
+      res.json({
+        success:true,
+        newScore,
+        user,
+        gb,
+      });
+    }catch(err) {
+      console.error(err);
+      res.status(500).json({
+        success:false,
+        msg:'error posting to leaderboard'
+      });
+    }
+  }
 
 };
 

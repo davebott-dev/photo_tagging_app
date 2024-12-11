@@ -14,11 +14,12 @@ datasource db {
 }
 
 model Gameboard {
-  id         String      @id @default(uuid())
-  name       String
-  imgURL     String
-  characters Character[]
-  User       User[]
+  id          String        @id @default(uuid())
+  name        String
+  imgURL      String
+  characters  Character[]
+  User        User[]
+  Leaderboard Leaderboard[]
 }
 
 model Character {
@@ -33,11 +34,12 @@ model Character {
 }
 
 model User {
-  id          String    @id @default(uuid())
-  username    String    @unique
-  mapChoice   Gameboard @relation(fields: [gameboardId], references: [id])
+  id          String        @id @default(uuid())
+  username    String        @unique
+  mapChoice   Gameboard     @relation(fields: [gameboardId], references: [id])
   guesses     Guess[]
   gameboardId String
+  Leaderboard Leaderboard[]
 }
 
 model Guess {
@@ -52,7 +54,10 @@ model Guess {
 }
 
 model Leaderboard {
-  id String @id @default(uuid())
+  id          String    @id @default(uuid())
+  user        User      @relation(fields: [userId], references: [id])
+  gameboard   Gameboard @relation(fields: [gameboardId], references: [id])
+  userId      String
+  time        Int
+  gameboardId String
 }
-
-//create leaderboard schema
