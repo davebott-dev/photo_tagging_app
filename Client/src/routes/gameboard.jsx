@@ -13,13 +13,6 @@ function Gameboard() {
     open ? setOpen(false) : setOpen(true);
   };
 
-  const formatTime = (s) => {
-    const minutes = Math.floor(s / 60);
-    const sec = s % 60;
-    return `${minutes.toString().padStart(2, "0")}: ${sec
-      .toString()
-      .padStart(2, "0")}`;
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,7 +76,7 @@ function Gameboard() {
                       const timeVal = time;
 
                         try{
-                          await fetch("/api/game/" + userId +'/win',{
+                          const response2 =await fetch("/api/game/" + userId +'/win',{
                             method: "POST",
                             headers: {
                               "Content-Type": "application/json",
@@ -94,17 +87,14 @@ function Gameboard() {
                               timeVal,
                             }),
                           });
-                          if(response.ok) {
+                          if(response2.ok) {
                             const score = await response.json();
                             console.log("New Score", score);
                           }
                         }catch(err) {
                           console.error("could not post to leaderboard",err)
                         }
-                      // window.location.assign('http://localhost:5173/');
-                      return(
-                        <div>hello world</div>
-                      )
+                      window.location.assign('http://localhost:5173/leaderboard');
                     }
                   }
                 } catch (err) {
