@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react';
-import {useOutletContext} from 'react-router-dom';
+import "../App.css";
 
-const Leaderboard =() => {
-    const [game, setGame, time] = useOutletContext();
 
+function Leaderboard() {
     const formatTime = (s) => {
         const minutes = Math.floor(s / 60);
         const sec = s % 60;
@@ -13,7 +12,12 @@ const Leaderboard =() => {
       };
 
       useEffect(()=> {
-        //useEffect to fetch gb leaderboard data for the board just played and display it
+        const fetchData = async () => {
+          const response = await fetch("/api/game/leaderboard");
+          const data = await response.json();
+          console.log(data);
+        };
+        fetchData();      
       })
 
       console.log(game)

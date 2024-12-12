@@ -7,6 +7,7 @@ function Gameboard() {
   const [game, setGame, time] = useOutletContext();
   const [guess, setGuess] = useState([]);
   const { userId } = useParams();
+  const [hasWon, setHasWon] =useState(false);
 
   const handleClick = (e) => {
     setGuess([e.clientX, e.clientY]);
@@ -123,4 +124,8 @@ function Gameboard() {
 
 export default Gameboard;
 
-//figure out why I cant post to leaderboard--chatGPT
+//haswon && leaderboard component so it only shows on true
+
+//pass props to leaderboard to use use as the gbId and time etc..
+//make a fetch call from the gb componenet to get the required data
+// post it and reveal it in front of the current screen

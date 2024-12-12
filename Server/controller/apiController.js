@@ -182,6 +182,33 @@ module.exports = {
         msg:'error posting to leaderboard'
       });
     }
+  },
+  getLeader: async(req,res)=> {
+    try{
+      const leaderboard = await prisma.gameboard.findUnique({
+        where:{
+          id: req.params.gbId,
+        },
+        include: {
+          Leaderboard,
+          characters: {
+              include: {
+                  Guess:true,
+              }
+          },
+        },
+      });
+      res.json({
+        success:true,
+        leaderboard,
+      });
+    }catch(err) {
+      res.status(500).json({
+        success:false,
+        err,
+        msg: 'failed'
+      });
+    }
   }
 
 };
