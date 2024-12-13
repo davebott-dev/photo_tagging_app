@@ -185,17 +185,16 @@ module.exports = {
   },
   getLeader: async(req,res)=> {
     try{
-      const leaderboard = await prisma.gameboard.findUnique({
+      const leaderboard = await prisma.leaderboard.findMany({
         where:{
-          id: req.params.gbId,
+          gameboardId: req.params.gbId,
         },
         include: {
-          Leaderboard,
-          characters: {
-              include: {
-                  Guess:true,
-              }
+          gameboard:true,
+          user:true,          
           },
+          orderBy: {
+            time:'asc',
         },
       });
       res.json({

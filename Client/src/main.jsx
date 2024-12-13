@@ -5,6 +5,7 @@ import "@fontsource/jaro";
 import Index from './Index.jsx'
 import Root from './routes/Root.jsx';
 import Gameboard from './routes/Gameboard.jsx';
+import Leaderboard from './routes/Leaderboard.jsx';
 const router = createBrowserRouter([
   {
     path:'/',
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         path: '/game/:userId',
         element: <Gameboard/>,
       },
+      {
+        path:'/leaderboard/:gbId',
+        element: <Leaderboard/>,
+      }
     ]
   }
 ])

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useOutletContext } from "react-router-dom";
+import { useParams, useOutletContext, useNavigate } from "react-router-dom";
 import "../App.css";
 
 function Gameboard() {
@@ -7,7 +7,7 @@ function Gameboard() {
   const [game, setGame, time] = useOutletContext();
   const [guess, setGuess] = useState([]);
   const { userId } = useParams();
-  const [hasWon, setHasWon] =useState(false);
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     setGuess([e.clientX, e.clientY]);
@@ -95,7 +95,8 @@ function Gameboard() {
                         }catch(err) {
                           console.error("could not post to leaderboard",err)
                         }
-                      window.location.assign('http://localhost:5173/leaderboard');
+                      navigate('/leaderboard/'+game.game.id ,{state: {time}});
+                  
                     }
                   }
                 } catch (err) {
@@ -123,9 +124,3 @@ function Gameboard() {
 }
 
 export default Gameboard;
-
-//haswon && leaderboard component so it only shows on true
-
-//pass props to leaderboard to use use as the gbId and time etc..
-//make a fetch call from the gb componenet to get the required data
-// post it and reveal it in front of the current screen
