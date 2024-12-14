@@ -28,14 +28,17 @@ function Leaderboard({ time }) {
   return (
     <div id="leaderboard">
       <h1>Leaderboard</h1>
-      {scores.leaderboard.map((score,index)=> {
+      <h2>Map: {scores.leaderboard[0].gameboard.name}</h2>
+      {scores? scores.leaderboard.map((score,index)=> {
         return (
-          <div key ={index}>hello</div>
+          <div key ={index} className = "scores">
+            <div>{score.user.username}</div>
+            <div>{score.time}</div>
+          </div>
         )
-      })}
-      <button>Return Home</button>
+      }): <p>loading please wait...</p>}
+      <button id="leaderboard-btn"><a href="/">Return Home</a></button>
     </div>
   )
 }
-//render the leaderboard
 export default Leaderboard;
