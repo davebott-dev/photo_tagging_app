@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams, useOutletContext, useNavigate } from "react-router-dom";
+import { useParams, useOutletContext } from "react-router-dom";
 import "../App.css";
 
 function Gameboard() {
@@ -7,7 +7,6 @@ function Gameboard() {
   const [game, setGame, time] = useOutletContext();
   const [guess, setGuess] = useState([]);
   const { userId } = useParams();
-  const navigate = useNavigate();
 
   const handleClick = (e) => {
     setGuess([e.clientX, e.clientY]);
@@ -95,7 +94,7 @@ function Gameboard() {
                         }catch(err) {
                           console.error("could not post to leaderboard",err)
                         }
-                      navigate('/leaderboard/'+game.game.id ,{state: {time}});
+                      window.location.assign('/leaderboard/'+game.game.id);
                   
                     }
                   }

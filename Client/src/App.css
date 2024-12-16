@@ -47,7 +47,8 @@ body{
 #rootContainer>div{
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 25px;
+  padding: 25px;
 }
 #popup {
   display: flex;
@@ -116,25 +117,36 @@ a{
   border: none;
   background: none;
 }
+#rootContainer>div {
+  height: 100%;
+}
 #leaderboard{
   padding: 25px;
-  margin:auto;
   background: lightslategray;
+  box-shadow: rgba(238, 237, 237, 0.24) 0px 3px 8px;
   border-radius: 10px;
   color: black;
-
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 .scores {
   display: flex;
+  gap: 50px;
+  margin-bottom: 15px;
+  justify-content: center;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
   padding: 5px;
+  border-bottom: 1px dashed black;
 }
 #leaderboard-btn{
   margin-top: 15px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   outline: none;
   cursor: pointer;
+  background: black;
+  padding: 10px;
+  color: white;
 }

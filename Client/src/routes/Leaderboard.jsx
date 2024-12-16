@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "../App.css";
 
-function Leaderboard({ time }) {
+function Leaderboard() {
   const { gbId } = useParams();
   const [scores,setScores] =useState();
 
@@ -26,19 +26,22 @@ function Leaderboard({ time }) {
 
 
   return (
-    <div id="leaderboard">
-      <h1>Leaderboard</h1>
-      <h2>Map: {scores.leaderboard[0].gameboard.name}</h2>
-      {scores? scores.leaderboard.map((score,index)=> {
-        return (
-          <div key ={index} className = "scores">
-            <div>{score.user.username}</div>
-            <div>{score.time}</div>
-          </div>
-        )
-      }): <p>loading please wait...</p>}
-      <button id="leaderboard-btn"><a href="/">Return Home</a></button>
-    </div>
-  )
+    scores ? <div id="leaderboard">
+      <div>
+        <h1>Leaderboard</h1>
+        <h2>Map: {scores.leaderboard[0].gameboard.name}</h2>
+        {scores.leaderboard.map((score,index)=> {
+          return (
+            <div key ={index} className = "scores">
+              <div>{score.user.username}</div>
+              <div>{score.time}</div>
+            </div>
+          )
+        })}
+      </div>
+      <a href="/"><button id="leaderboard-btn">Return Home</button></a>
+    </div> : <p>loading</p>
+  ) 
 }
 export default Leaderboard;
+

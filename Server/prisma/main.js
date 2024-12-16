@@ -74,9 +74,3 @@ const main = async() => {
 }
 
 main();
-
-//finish adding data manually -- make multipe maps?
-// front end must get user info first and select a map
-
-//figure out coordinate data
-//use backend data to load front end instead...make routes and controllers to prisma
