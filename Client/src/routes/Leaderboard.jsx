@@ -6,14 +6,6 @@ function Leaderboard() {
   const { gbId } = useParams();
   const [scores,setScores] =useState();
 
-  const formatTime = (s) => {
-    const minutes = Math.floor(s / 60);
-    const sec = s % 60;
-    return `${minutes.toString().padStart(2, "0")}: ${sec
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch("/api/game/leaderboard/"+gbId);
@@ -31,10 +23,17 @@ function Leaderboard() {
         <h1>Leaderboard</h1>
         <h2>Map: {scores.leaderboard[0].gameboard.name}</h2>
         {scores.leaderboard.map((score,index)=> {
+            const formatTime = (s) => {
+              const minutes = Math.floor(s / 60);
+              const sec = s % 60;
+              return `${minutes.toString().padStart(2, "0")}: ${sec
+                .toString()
+                .padStart(2, "0")}`;
+            };
           return (
             <div key ={index} className = "scores">
               <div>{score.user.username}</div>
-              <div>{score.time}</div>
+              <div>{formatTime(score.time)}</div>
             </div>
           )
         })}
